@@ -105,6 +105,27 @@ public class CleanFile {
 	
 }
 
+/**
+ * Calcola il numero di anagrammi in comune con il dizionario data una parola
+*/
+public class NumberOfFAnagrams(){
+    /**
+     * Numero di anagrammi in comune con il dizionario.
+    */
+    private int number;
+    
+    public NumberOfFAnagrams(String word){
+        //Calcolo il numero di anagrammi in comune
+        calculate(word);
+    }
+    
+    public void calculate(String word){
+        //Per ogni anagramma
+        //Controllo se esiste parola in comune nel dizionario
+    }
+}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%
 %        MAIN        %
