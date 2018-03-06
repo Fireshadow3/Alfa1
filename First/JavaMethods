@@ -22,7 +22,7 @@ public class CleanFile {
 		// stringa per leggere ogni riga del file
 		String line;
 		// ArrayList per rimuovere tutte le parole dopo '/'
-		ArrayList<String> words = new ArrayList<>();
+		ArrayList<String> elementsInTheFile = new ArrayList<>();
 		// Array finale da stampare su file
 		String[] finalWords;
 		// output arraylist
@@ -30,10 +30,10 @@ public class CleanFile {
 
 		while ((line = reader.readLine()) != null) {
 			if ((line.charAt(0) >= 'a' && line.charAt(0) <= 'z') || (line.charAt(0) >= 'A' && line.charAt(0) <= 'Z'))
-				words.add(line);
+				elementsInTheFile.add(line);
 		}
 		// inserisco i caratteri nell'array e stampo
-		for (String element : words) {
+		for (String element : elementsInTheFile) {
 			finalWords = element.split("/");
 			writer.write(finalWords[0] + "\n");
 			finalArrayList.add(finalWords[0]);
@@ -43,7 +43,7 @@ public class CleanFile {
 		return finalArrayList;
 	}
 	
-	public static int getManz() {
+	public static int getLettersInDictionary() {
 		return CleanFile.TotalLettersInDictionary;
 	}
 	
@@ -93,10 +93,10 @@ public class CleanFile {
 	}
 
 	// dato un ArrayList, conta il numero di ricorrenze di ogni anagramma
-	public int numbersOfAnagramsInAnArrayList(ArrayList<String> input_ArrayList, String word) {
+	public int numbersOfAnagramsInAnArrayList(ArrayList<String> input_ArrayList, String input_word) {
 		int counter = 0;
 		// ArrayList anagrammi
-		ArrayList<String> anagrams = anagramGenerator(word);
+		ArrayList<String> anagrams = anagramGenerator(input_word);
 		for (String element : input_ArrayList) {
 			for (String s : anagrams) {
 				if (s.equalsIgnoreCase(element))
@@ -120,7 +120,7 @@ public class CleanFile {
 		}
 		for (String element : input_ArrayList) {
 			element = element.toLowerCase();
-			for(int k = 0; k < element.length(); k++, CleanFile.TotalLettersInDictionary++) {
+			for (int k = 0; k < element.length(); k++, CleanFile.TotalLettersInDictionary++) {
 				switch(element.charAt(k)) {
 				case 'a':
 					alphabetLettersAbsoluteFrequencyArray[0]++;
@@ -212,11 +212,11 @@ public class CleanFile {
 		return i * 100;
 	}
 	
-	public ArrayList<String> estrazione(ArrayList<String> input_ArrayList, String input_firstWord, String input_lastWord) {
+	public ArrayList<String> extraction(ArrayList<String> input_ArrayList, String input_firstWord, String input_lastWord) {
 		ArrayList<String> result = new ArrayList<>();
 		
-		for(String k : input_ArrayList) {
-			if(k.compareTo(input_firstWord) >= 0 && k.compareTo(input_lastWord) <= 0) {
+		for (String k : input_ArrayList) {
+			if (k.compareTo(input_firstWord) >= 0 && k.compareTo(input_lastWord) <= 0) {
 				result.add(k);
 			}
 		}
@@ -231,7 +231,7 @@ public class CleanFile {
 		char[] alphabetArray = new char[ALPHABET_LEN];
 		// array di frequenze assolute
 		int[] alphabetLettersAbsoluteFrequencyArray = new int[ALPHABET_LEN];
-		ArrayList<String> brutto;
+		ArrayList<String> charactersBetweenTheTwoWords;
 		char letter = 'a';
 		// inizializzo l'array con le lettere dell'alfabeto
 		for (int i = 0; i < ALPHABET_LEN; i++) {
@@ -244,9 +244,9 @@ public class CleanFile {
 			return alphabetLettersAbsoluteFrequencyArray;
 		}
 		
-		brutto = estrazione(input_ArrayList, input_firstWord, input_lastWord);
+		charactersBetweenTheTwoWords = extraction(input_ArrayList, input_firstWord, input_lastWord);
 		
-		for (String element : brutto) {
+		for (String element : charactersBetweenTheTwoWords) {
 			element = element.toLowerCase();
 				for(int k = 0; k < element.length(); k++, CleanFile.TotalLettersInDictionary++) {
 					switch(element.charAt(k)) {
@@ -337,6 +337,7 @@ public class CleanFile {
 	}
 	
 }
+
 
 
 
