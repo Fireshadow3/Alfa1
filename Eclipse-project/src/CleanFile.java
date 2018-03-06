@@ -47,6 +47,10 @@ public class CleanFile {
 		return CleanFile.TotalLettersInDictionary;
 	}
 	
+	public static int getLettersInDictionaryBetweenTwoWords() {
+		return CleanFile.TotalLettersBetweenTwoWords;
+	}
+	
 	public int wordsBetweenEightAndElevenCharacters(String input_file) throws IOException {
 		// file input
 		File fin = new File(input_file);
@@ -121,88 +125,7 @@ public class CleanFile {
 		for (String element : input_ArrayList) {
 			element = element.toLowerCase();
 			for (int k = 0; k < element.length(); k++, CleanFile.TotalLettersInDictionary++) {
-				switch(element.charAt(k)) {
-				case 'a':
-					alphabetLettersAbsoluteFrequencyArray[0]++;
-					break;
-				case 'b':
-					alphabetLettersAbsoluteFrequencyArray[1]++;
-					break;
-				case 'c':
-					alphabetLettersAbsoluteFrequencyArray[2]++;
-					break;
-				case 'd':
-					alphabetLettersAbsoluteFrequencyArray[3]++;
-					break;
-				case 'e':
-					alphabetLettersAbsoluteFrequencyArray[4]++;
-					break;
-				case 'f':
-					alphabetLettersAbsoluteFrequencyArray[5]++;
-					break;
-				case 'g':
-					alphabetLettersAbsoluteFrequencyArray[6]++;
-					break;
-				case 'h':
-					alphabetLettersAbsoluteFrequencyArray[7]++;
-					break;
-				case 'i':
-					alphabetLettersAbsoluteFrequencyArray[8]++;
-					break;
-				case 'j':
-					alphabetLettersAbsoluteFrequencyArray[9]++;
-					break;
-				case 'k':
-					alphabetLettersAbsoluteFrequencyArray[10]++;
-					break;
-				case 'l':
-					alphabetLettersAbsoluteFrequencyArray[11]++;
-					break;
-				case 'm':
-					alphabetLettersAbsoluteFrequencyArray[12]++;
-					break;
-				case 'n':
-					alphabetLettersAbsoluteFrequencyArray[13]++;
-					break;
-				case 'o':
-					alphabetLettersAbsoluteFrequencyArray[14]++;
-					break;
-				case 'p':
-					alphabetLettersAbsoluteFrequencyArray[15]++;
-					break;
-				case 'q':
-					alphabetLettersAbsoluteFrequencyArray[16]++;
-					break;
-				case 'r':
-					alphabetLettersAbsoluteFrequencyArray[17]++;
-					break;
-				case 's':
-					alphabetLettersAbsoluteFrequencyArray[18]++;
-					break;
-				case 't':
-					alphabetLettersAbsoluteFrequencyArray[19]++;
-					break;
-				case 'u':
-					alphabetLettersAbsoluteFrequencyArray[20]++;
-					break;
-				case 'v':
-					alphabetLettersAbsoluteFrequencyArray[21]++;
-					break;
-				case 'w':
-					alphabetLettersAbsoluteFrequencyArray[22]++;
-					break;
-				case 'x':
-					alphabetLettersAbsoluteFrequencyArray[23]++;
-					break;
-				case 'y':
-					alphabetLettersAbsoluteFrequencyArray[24]++;
-					break;
-				case 'z':
-					alphabetLettersAbsoluteFrequencyArray[25]++;
-					break;
-				default:
-					break;
-				}
+				switchCaseAlphabetFrequency(element, k, alphabetLettersAbsoluteFrequencyArray);
 			}
 		}
 		return alphabetLettersAbsoluteFrequencyArray;
@@ -248,92 +171,97 @@ public class CleanFile {
 		
 		for (String element : charactersBetweenTheTwoWords) {
 			element = element.toLowerCase();
-				for(int k = 0; k < element.length(); k++, CleanFile.TotalLettersInDictionary++) {
-					switch(element.charAt(k)) {
-					case 'a':
-						alphabetLettersAbsoluteFrequencyArray[0]++;
-						break;
-					case 'b':
-						alphabetLettersAbsoluteFrequencyArray[1]++;
-						break;
-					case 'c':
-						alphabetLettersAbsoluteFrequencyArray[2]++;
-						break;
-					case 'd':
-						alphabetLettersAbsoluteFrequencyArray[3]++;
-						break;
-					case 'e':
-						alphabetLettersAbsoluteFrequencyArray[4]++;
-						break;
-					case 'f':
-						alphabetLettersAbsoluteFrequencyArray[5]++;
-						break;
-					case 'g':
-						alphabetLettersAbsoluteFrequencyArray[6]++;
-						break;
-					case 'h':
-						alphabetLettersAbsoluteFrequencyArray[7]++;
-						break;
-					case 'i':
-						alphabetLettersAbsoluteFrequencyArray[8]++;
-						break;
-					case 'j':
-						alphabetLettersAbsoluteFrequencyArray[9]++;
-						break;
-					case 'k':
-						alphabetLettersAbsoluteFrequencyArray[10]++;
-						break;
-					case 'l':
-						alphabetLettersAbsoluteFrequencyArray[11]++;
-						break;
-					case 'm':
-						alphabetLettersAbsoluteFrequencyArray[12]++;
-						break;
-					case 'n':
-						alphabetLettersAbsoluteFrequencyArray[13]++;
-						break;
-					case 'o':
-						alphabetLettersAbsoluteFrequencyArray[14]++;
-						break;
-					case 'p':
-						alphabetLettersAbsoluteFrequencyArray[15]++;
-						break;
-					case 'q':
-						alphabetLettersAbsoluteFrequencyArray[16]++;
-						break;
-					case 'r':
-						alphabetLettersAbsoluteFrequencyArray[17]++;
-						break;
-					case 's':
-						alphabetLettersAbsoluteFrequencyArray[18]++;
-						break;
-					case 't':
-						alphabetLettersAbsoluteFrequencyArray[19]++;
-						break;
-					case 'u':
-						alphabetLettersAbsoluteFrequencyArray[20]++;
-						break;
-					case 'v':
-						alphabetLettersAbsoluteFrequencyArray[21]++;
-						break;
-					case 'w':
-						alphabetLettersAbsoluteFrequencyArray[22]++;
-						break;
-					case 'x':
-						alphabetLettersAbsoluteFrequencyArray[23]++;
-						break;
-					case 'y':
-						alphabetLettersAbsoluteFrequencyArray[24]++;
-						break;
-					case 'z':
-						alphabetLettersAbsoluteFrequencyArray[25]++;
-						break;
-					default:
-						break;
-					}	
+				for(int k = 0; k < element.length(); k++, CleanFile.TotalLettersBetweenTwoWords++) {
+					switchCaseAlphabetFrequency(element, k, alphabetLettersAbsoluteFrequencyArray);
 			}
 		}
 		return alphabetLettersAbsoluteFrequencyArray;
+	}
+	
+	// switch - case per trovare la frequenza delle lettere dell'alfabeto nel dizionario
+	public void switchCaseAlphabetFrequency(String element, int k, int[] alphabetLettersAbsoluteFrequencyArray) {
+		switch(element.charAt(k)) {
+		case 'a':
+			alphabetLettersAbsoluteFrequencyArray[0]++;
+			break;
+		case 'b':
+			alphabetLettersAbsoluteFrequencyArray[1]++;
+			break;
+		case 'c':
+			alphabetLettersAbsoluteFrequencyArray[2]++;
+			break;
+		case 'd':
+			alphabetLettersAbsoluteFrequencyArray[3]++;
+			break;
+		case 'e':
+			alphabetLettersAbsoluteFrequencyArray[4]++;
+			break;
+		case 'f':
+			alphabetLettersAbsoluteFrequencyArray[5]++;
+			break;
+		case 'g':
+			alphabetLettersAbsoluteFrequencyArray[6]++;
+			break;
+		case 'h':
+			alphabetLettersAbsoluteFrequencyArray[7]++;
+			break;
+		case 'i':
+			alphabetLettersAbsoluteFrequencyArray[8]++;
+			break;
+		case 'j':
+			alphabetLettersAbsoluteFrequencyArray[9]++;
+			break;
+		case 'k':
+			alphabetLettersAbsoluteFrequencyArray[10]++;
+			break;
+		case 'l':
+			alphabetLettersAbsoluteFrequencyArray[11]++;
+			break;
+		case 'm':
+			alphabetLettersAbsoluteFrequencyArray[12]++;
+			break;
+		case 'n':
+			alphabetLettersAbsoluteFrequencyArray[13]++;
+			break;
+		case 'o':
+			alphabetLettersAbsoluteFrequencyArray[14]++;
+			break;
+		case 'p':
+			alphabetLettersAbsoluteFrequencyArray[15]++;
+			break;
+		case 'q':
+			alphabetLettersAbsoluteFrequencyArray[16]++;
+			break;
+		case 'r':
+			alphabetLettersAbsoluteFrequencyArray[17]++;
+			break;
+		case 's':
+			alphabetLettersAbsoluteFrequencyArray[18]++;
+			break;
+		case 't':
+			alphabetLettersAbsoluteFrequencyArray[19]++;
+			break;
+		case 'u':
+			alphabetLettersAbsoluteFrequencyArray[20]++;
+			break;
+		case 'v':
+			alphabetLettersAbsoluteFrequencyArray[21]++;
+			break;
+		case 'w':
+			alphabetLettersAbsoluteFrequencyArray[22]++;
+			break;
+		case 'x':
+			alphabetLettersAbsoluteFrequencyArray[23]++;
+			break;
+		case 'y':
+			alphabetLettersAbsoluteFrequencyArray[24]++;
+			break;
+		case 'z':
+			alphabetLettersAbsoluteFrequencyArray[25]++;
+			break;
+		default:
+			break;
+		}
 	}
 	
 }
