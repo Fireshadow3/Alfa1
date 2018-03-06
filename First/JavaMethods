@@ -24,14 +24,10 @@ public class CleanFile {
         // Array finale da stampare su file
         String[] finalWords;
         
-        try {
-            while ((line = reader.readLine()) != null) {
-                if ((line.charAt(0) >= 'a' && line.charAt(0) <= 'z') ||
-                        (line.charAt(0) >= 'A' && line.charAt(0) <= 'Z'))
-                    words.add(line);
-            }
-        }catch(NullPointerException e) { // fine della lista / lista vuota
-            System.out.println("End");
+        while ((line = reader.readLine()) != null) {
+            if ((line.charAt(0) >= 'a' && line.charAt(0) <= 'z') ||
+                    (line.charAt(0) >= 'A' && line.charAt(0) <= 'Z'))
+                words.add(line);
         }
         // inserisco i caratteri nell'array e stampo
         for (String element : words) {
@@ -42,7 +38,6 @@ public class CleanFile {
         writer.close();
 	}
 	
-	// ritarna il numero di parole comprese tra 8 e 11 (di lunghezza)
 	public int wordsBetweenEightAndEleven(String input_file) throws IOException {
 		// file input
         File fin = new File(input_file);
@@ -56,14 +51,10 @@ public class CleanFile {
         // Array finale da stampare su file
         String[] finalWords;
         
-        try {
-            while ((line = reader.readLine()) != null) {
-                if ((line.charAt(0) >= 'a' && line.charAt(0) <= 'z') ||
-                        (line.charAt(0) >= 'A' && line.charAt(0) <= 'Z'))
-                    words.add(line);
-            }
-        }catch(NullPointerException e) { // fine della lista / lista vuota
-            System.out.println("End");
+        while ((line = reader.readLine()) != null) {
+            if ((line.charAt(0) >= 'a' && line.charAt(0) <= 'z') ||
+                    (line.charAt(0) >= 'A' && line.charAt(0) <= 'Z'))
+                words.add(line);
         }
         int counter = 0;
         // controllo la lunghezza della parola
@@ -96,33 +87,9 @@ public class CleanFile {
 	
 	// numero anagrammi
 	public int numbersOfAnagrams(ArrayList<String> list) {
-		int counter = 0;
-		for (String element : list) {
-			counter++;
-		}
-		return counter;
+		return list.size();
 	}
 	
-}
-
-/**
- * Calcola il numero di anagrammi in comune con il dizionario data una parola
-*/
-public class NumberOfFAnagrams(){
-    /**
-     * Numero di anagrammi in comune con il dizionario.
-    */
-    private int number;
-    
-    public NumberOfFAnagrams(String word){
-        //Calcolo il numero di anagrammi in comune
-        calculate(word);
-    }
-    
-    public void calculate(String word){
-        //Per ogni anagramma
-        //Controllo se esiste parola in comune nel dizionario
-    }
 }
 
 
@@ -132,25 +99,27 @@ public class NumberOfFAnagrams(){
 %%%%%%%%%%%%%%%%%%%%%%
 
 
-
 package fiero;
 
 import java.io.*;
+import java.util.*;
 
 public class Main {
 	
     public static void main(String[] args) throws IOException{
     	CleanFile c = new CleanFile();
+    	ArrayList<String> strings;
     	
-    	String in = "it_IT.txt";   // file input
-    	String out = "output.txt"; // file output
+    	String in = "list.txt";   // file input
+    	String out = "monco.txt"; // file output
     	
     	String m = "cin";
     	
     	c.cleanAndPrintAfterSlash(in, out);
-    
-    	System.out.println(c.anagram(m));
-    	System.out.println(c.numbersOfAnagrams(c.anagram(m)));
+    	
+    	strings = c.anagram(m);
+    	System.out.println(strings);
+    	System.out.println(c.numbersOfAnagrams(strings));
     	System.out.println(c.wordsBetweenEightAndEleven(in));
     }
 
