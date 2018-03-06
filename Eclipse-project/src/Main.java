@@ -23,23 +23,27 @@ public class Main {
     	System.out.println("Parole comprese tra 8 e 11 caratteri: " + c.wordsBetweenEightAndElevenCharacters(in));
     	System.out.println();
     	
+    	System.out.println("Ricerca lettere nel dizionario: ");
     	int[] testArray = c.frequencyOfAlphabetLetterInDictionary(strings);
     	char l = 'a';
-    	/*
     	for (int i : testArray) {
-    		double percentage = c.percentageFrequency((double)i / CleanFile.getManz());
-    		System.out.println(l + ": " + i + ";\t\tFrequenza relativa: " + percentage / 100 + ";\t Frequenza percentuale: " + percentage + "%");
-    		l++;
-    	}
-    	*/
-    	String first = "cni";
-    	String last = "nci";
-    	int[] array = c.frequencyOfAlphabetLetterInDictionaryFromAWordToAnother(strings, first, last);
-    	for (int s : array) {
-    		System.out.println("Lettera: " + l + " -> " + s);
+    		double percentage1 = c.percentageFrequency((double)i / CleanFile.getLettersInDictionary());
+    		System.out.println(l + ": " + i + ";\t\tFrequenza relativa: " + percentage1 / 100 + ";\t Frequenza percentuale: " + percentage1 + "%");
     		l++;
     	}
     	
+    	System.out.println();
+    	
+    	System.out.println("Ricerca lettere fra due parole nel dizionario: ");
+    	String first = "cni";
+    	String last = "nci";
+    	char l1 = 'a';
+    	int[] array = c.frequencyOfAlphabetLetterInDictionaryFromAWordToAnother(strings, first, last);
+    	for (int s : array) {
+    		double percentage2 = c.percentageFrequency(s) / CleanFile.getLettersInDictionaryBetweenTwoWords();
+    		System.out.println(l1 + ": " + s + ";\t\tFrequenza relativa: " + percentage2 / 100 + ";\t Frequenza percentuale: " + percentage2 + "%");
+    		l1++;
+    	}
     }
 
 }
