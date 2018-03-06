@@ -1,0 +1,236 @@
+package fiero;
+
+import java.io.*;
+import java.util.*;
+
+public class CleanFile {
+	static final int MAX_LENGTH = 11;
+	static final int MIN_LENGTH = 8;
+	
+	public void cleanAndPrintAfterSlash(String input_file, String output_file) throws IOException {
+		// file input
+        File fin = new File(input_file);
+        // file output
+        FileWriter fout = new FileWriter(output_file);
+        // oggetto reader con codifica dei caratteri UTF-16
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new FileInputStream(fin), "UTF-16"));
+        // oggetto writer
+        BufferedWriter writer = new BufferedWriter(fout);
+        // stringa per leggere ogni riga del file
+        String line;
+        // ArrayList per rimuovere tutte le parole dopo '/'
+        ArrayList<String> words = new ArrayList<>();
+        // Array finale da stampare su file
+        String[] finalWords;
+        
+        while ((line = reader.readLine()) != null) {
+            if ((line.charAt(0) >= 'a' && line.charAt(0) <= 'z') ||
+                    (line.charAt(0) >= 'A' && line.charAt(0) <= 'Z'))
+                words.add(line);
+        }
+        // inserisco i caratteri nell'array e stampo
+        for (String element : words) {
+            finalWords = element.split("/");
+            writer.write(finalWords[0] + "\n");
+        }
+        reader.close();
+        writer.close();
+	}
+	
+	public int wordsBetweenEightAndEleven(String input_file) throws IOException {
+		// file input
+        File fin = new File(input_file);
+        // oggetto reader con codifica dei caratteri UTF-16
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new FileInputStream(fin), "UTF-16"));
+        // stringa per leggere ogni riga del file
+        String line;
+        // ArrayList per rimuovere tutte le parole dopo '/'
+        ArrayList<String> words = new ArrayList<>();
+        // Array finale da stampare su file
+        String[] finalWords;
+        
+        while ((line = reader.readLine()) != null) {
+            if ((line.charAt(0) >= 'a' && line.charAt(0) <= 'z') ||
+                    (line.charAt(0) >= 'A' && line.charAt(0) <= 'Z'))
+                words.add(line);
+        }
+        int counter = 0;
+        // controllo la lunghezza della parola
+        for (String element : words) {
+            finalWords = element.split("/");
+            if (finalWords[0].length() <= MAX_LENGTH && finalWords[0].length() >= MIN_LENGTH) {
+            	counter++;
+            }
+        }
+        reader.close();
+        return counter;
+	}
+	
+	// genera anagrammi
+	public ArrayList<String> anagram(String s) {
+		ArrayList<String> finalArrayList = new ArrayList<>();
+		if (s.length() <= 1)
+			finalArrayList.add(s);
+		else {
+			for (int i = 0; i < s.length(); i++) {
+				char c = s.charAt(i);
+				ArrayList<String> temp = anagram(s.substring(0, i) + s.substring(i + 1));
+				for (String element : temp) {
+					finalArrayList.add(c + element);
+				}
+			}
+		}
+		return finalArrayList;
+	}
+	
+  /////////////////////////////////////////////////////////////////////////////////
+  
+	// numero anagrammi contenuti nel file
+	public int numbersOfAnagrams(String input_file, String word) throws IOException {
+		ArrayList<String> anagrams = anagram(word);
+		int counter = 0;
+		// file input
+        File fin = new File(input_file);
+        // oggetto reader con codifica dei caratteri UTF-16
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new FileInputStream(fin), "UTF-16"));
+        // stringa per leggere ogni riga del file
+        String line;
+		while((line = reader.readLine()) != null) {
+			for (String element : anagrams) {
+				if (line.equalsIgnoreCase(element))
+					counter++;
+			}
+		}
+		reader.close();
+		return counter;
+	}
+	
+  
+  OR
+  
+
+  }	// numero anagrammi contenuti nel file
+    public int numbersOfAnagrams(String input_file, String word) throws IOException {
+      ArrayList<String> anagrams = anagram(word);
+      int counter = 0;
+      // file input
+          TextFile file = new TextFile(input_file, 'r');
+      // stringa per leggere ogni riga del file
+          String line;
+      while((line = file.fromFile()) != null) {
+        for (String element : anagrams) {
+          if (line.equalsIgnoreCase(element))
+            counter++;
+        }
+      }
+      file.close();
+      return counter;
+    }
+
+  
+  //////////////////////////////////////////////////////////////////////////
+
+
+
+package fiero;
+import java.io.*;
+
+public class TextFile {
+    private final char mode; // modalitÃ  di apertura del file
+    BufferedReader reader;   // oggetto importato dal package java.io per la lettura
+    BufferedWriter writer;   // oggetto importato dal package java.io per la scrittura
+    
+    /*
+        Il costruttore accetta come parametri il nome del file da aprire(String)
+        e la modalitÃ  con la quale aprirlo(char; 'w' o 'W' = scrittura; 
+        'r' o 'R' = lettura), istanziando ,a seconda della modalitÃ  di apertura,
+        gli oggetti necessari.
+    */
+    
+    public TextFile(String filename, char mode){
+        this.mode = mode;
+        
+        try{
+            if(this.mode == 'W' || this.mode == 'w'){
+                writer = new BufferedWriter(new FileWriter(filename));
+            }else if(this.mode == 'R' || this.mode == 'r'){
+                reader = new BufferedReader(new FileReader(filename));
+            }
+        }catch(IOException e){
+            System.out.println("Modalità  di accesso non accettata,"
+                    + " le uniche due alternative sono 'w'( o 'W') per la scrittura "
+                    + "e 'r'(o 'R') per la lettura!");
+        }
+    }
+    
+    /*
+        Il metodo toFile accetta come parametro una stringa, 
+        la stessa che verrÃ  poi scritta su file.
+    */
+    
+    public void toFile(String line) throws IOException{
+        writer.write(line);
+        writer.newLine();
+    }
+    
+    /*
+        Il metodo fromFile legge una stringa e la restituisce anche se Ã¨ nulla;
+        la gestione della fine del file Ã¨ affidata al metodo che chiama questa 
+        funzione.
+    */
+    
+    public String fromFile() throws IOException{
+        String tmp;
+        tmp = reader.readLine();
+        return tmp;
+    }
+    
+    /*
+        Il metodo close elimina le istanze degli oggetti di lettura o scrittura 
+        su file.    
+    */
+    
+    public void close() throws IOException{
+        if(this.mode == 'w' || this.mode == 'W'){
+            writer.close();
+        }else{
+            reader.close();
+        }
+    }
+}
+
+
+
+
+
+
+
+
+package fiero;
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+    public static void main(String[] args) throws IOException{
+    	CleanFile c = new CleanFile();
+    	ArrayList<String> strings;
+    	
+    	String in = "list.txt";   // file input
+    	String out = "monco.txt"; // file output
+    	
+    	String m = "abbozzo";
+    	
+    	c.cleanAndPrintAfterSlash(in, out);
+    	
+    	strings = c.anagram(m);
+    	System.out.println(strings);
+    	System.out.println(c.numbersOfAnagrams(out, m));
+    	System.out.println(c.wordsBetweenEightAndEleven(in));
+    }
+
+}
