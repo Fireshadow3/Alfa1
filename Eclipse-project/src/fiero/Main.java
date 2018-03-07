@@ -6,7 +6,9 @@ import java.util.*;
 public class Main {
 	
     public static void main(String[] args) throws IOException{
-    	CleanFile c = new CleanFile();
+    	FileManagement file = new FileManagement();
+    	AnagramManagement anag = new AnagramManagement();
+    	WordsInDIctionaryManagement words = new WordsInDIctionaryManagement();
     	ArrayList<String> strings;
     	ArrayList<String> testArrayList;
     	
@@ -15,19 +17,19 @@ public class Main {
     	
     	String m = "cin";
     	
-    	testArrayList = c.deleteWordsAfterSlashCharacter(in, out);
+    	testArrayList = file.deleteWordsAfterSlashCharacter(in, out);
     	
-    	strings = c.anagramGenerator(m);
+    	strings = anag.anagramGenerator(m);
     	System.out.println(strings);
-    	System.out.println(c.numbersOfAnagramsInAnArrayList(testArrayList, m));
-    	System.out.println("Parole comprese tra 8 e 11 caratteri: " + c.wordsBetweenEightAndElevenCharacters(in));
+    	System.out.println(anag.numbersOfAnagramsInAnArrayList(testArrayList, m));
+    	System.out.println("Parole comprese tra 8 e 11 caratteri: " + file.wordsBetweenEightAndElevenCharacters(in));
     	System.out.println();
     	
     	System.out.println("Ricerca lettere nel dizionario: ");
-    	int[] testArray = c.frequencyOfAlphabetLetterInDictionary(strings);
+    	int[] testArray = words.frequencyOfAlphabetLetterInDictionary(strings);
     	char l = 'a';
     	for (int i : testArray) {
-    		double percentage1 = c.percentageFrequency((double)i / CleanFile.getLettersInDictionary());
+    		double percentage1 = words.percentageFrequency((double)i / WordsInDIctionaryManagement.TotalLettersInDictionary);
     		System.out.println(l + ": " + i + ";\t\tFrequenza relativa: " + percentage1 / 100 + ";\t Frequenza percentuale: " + percentage1 + "%");
     		l++;
     	}
@@ -38,27 +40,11 @@ public class Main {
     	String first = "cni";
     	String last = "nci";
     	char l1 = 'a';
-    	int[] array = c.frequencyOfAlphabetLetterInDictionaryFromAWordToAnother(strings, first, last);
+    	int[] array = words.frequencyOfAlphabetLetterInDictionaryFromAWordToAnother(strings, first, last);
     	for (int s : array) {
-    		double percentage2 = c.percentageFrequency(s) / CleanFile.getLettersInDictionaryBetweenTwoWords();
+    		double percentage2 = words.percentageFrequency(s) / WordsInDIctionaryManagement.TotalLettersBetweenTwoWords;
     		System.out.println(l1 + ": " + s + ";\t\tFrequenza relativa: " + percentage2 / 100 + ";\t Frequenza percentuale: " + percentage2 + "%");
     		l1++;
     	}
-    	
-    	System.out.println("------------------------------------\nRICERCA BINARIA");
-    	ArrayList<String> arr = new ArrayList<String>();
-    	arr.add("BAUBAU");
-    	arr.add("CANE");
-    	arr.add("GRULLOFORMI");
-    	arr.add("ZANZARA");
-    	CleanFile cf = new CleanFile();
-    	try{
-    		System.out.println("Posizione della stringa: " + cf.binarySearch(arr, "GRULLOFORMI"));}
-    		// cf.binarySearch(arr, "BAUBAU");}
-    	catch(StringNotFoundException a){
-    		System.out.println(a.toString());
-    	}
-    	// java.util.Arrays.binarySearc
     }
-
 }
