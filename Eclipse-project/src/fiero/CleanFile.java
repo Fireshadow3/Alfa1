@@ -3,6 +3,11 @@ package fiero;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Classe temporanea contenente tutti i metodi fatti
+ * @author alessandro
+ *
+ */
 public class CleanFile {
 	static final int MAX_LENGTH = 11;
 	static final int MIN_LENGTH = 8;
@@ -263,5 +268,46 @@ public class CleanFile {
 			break;
 		}
 	}
-	
+	//#TOTEST COSA VUOL DIRE CHE SI POTEVA FARE IN UNA RIGA AQUI
+	/**
+	 * Dato un ArrayList di stringhe ed una stringa cerca la stringa tramite ricerca binaria nell'array, ritornando la posizione.
+	 * @param strings ArrayList in cui cercare la parola
+	 * @param wordToFind parola da trovare
+	 * @return posizione della parola nell'ArrayList
+	 * @throws StringNotFoundException nel caso non riesca a trovare la parola
+	 */
+	public int binarySearch(ArrayList<String> strings, String wordToFind) throws StringNotFoundException{
+		//Converto strings in un array
+		//String a = strings.toArray(); SBAGLIATO
+		//https://stackoverflow.com/questions/5061640/make-arraylist-toarray-return-more-specific-types
+		String[] a = strings.toArray(new String[strings.size()]);
+		
+		//Comincio una ricerca binaria iterativa
+		int start=0, end, center, position=0;
+		
+		//Imposto la fine a lunghezza array - 1
+		end = a.length-1;
+		//Finchè non start e end non si incontrano
+		while(start<=end){
+			//Imposto il centro a (inizio+fine)/2
+			center = (start+end)/2;
+			//Se il centro corrisponde alla stringa allora ho finito la ricerca
+			if(a[center].equals(wordToFind)){
+				//return a[center];
+				return position+center;
+			}
+			//Se la parola al centro viene prima della parola da cercare sposto l'inizio a centro
+			if(a[center].charAt(0) < wordToFind.charAt(0)){
+				start = center+1;
+				position = start;
+			}
+			//Se la parola al centro viene dopo della parola da cercare sposto la fine a centro
+			else{
+				end = center - 1;
+			}
+		}
+		
+		//Se arrivo qui la stringa non è stata trovata e sollevo quindi un eccezione
+		throw new StringNotFoundException("String not found during binary research");
+	}
 }
