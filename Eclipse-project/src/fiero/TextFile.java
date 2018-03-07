@@ -23,7 +23,7 @@ public class TextFile {
                 reader = new BufferedReader(new FileReader(filename));
             }
         }catch(IOException e){
-            System.out.println("Modalità  di accesso non accettata,"
+            System.out.println("Modalitï¿½ di accesso non accettata,"
                     + " le uniche due alternative sono 'w'( o 'W') per la scrittura "
                     + "e 'r'(o 'R') per la lettura!");
         }
