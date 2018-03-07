@@ -283,23 +283,23 @@ public class CleanFile {
 		String[] a = strings.toArray(new String[strings.size()]);
 		
 		//Comincio una ricerca binaria iterativa
-		int start=0, end, center, position=0;
+		int start = 0, end, center;
 		
 		//Imposto la fine a lunghezza array - 1
-		end = a.length-1;
-		//Finchè non start e end non si incontrano
+		end = a.length;
+		
+		//Finchè start e end non si incontrano
 		while(start<=end){
 			//Imposto il centro a (inizio+fine)/2
 			center = (start+end)/2;
 			//Se il centro corrisponde alla stringa allora ho finito la ricerca
 			if(a[center].equals(wordToFind)){
-				//return a[center];
-				return position+center;
+				// return a[center];
+				return center;
 			}
 			//Se la parola al centro viene prima della parola da cercare sposto l'inizio a centro
 			if(a[center].charAt(0) < wordToFind.charAt(0)){
 				start = center+1;
-				position = start;
 			}
 			//Se la parola al centro viene dopo della parola da cercare sposto la fine a centro
 			else{
@@ -309,5 +309,6 @@ public class CleanFile {
 		
 		//Se arrivo qui la stringa non è stata trovata e sollevo quindi un eccezione
 		throw new StringNotFoundException("String not found during binary research");
+		
 	}
 }

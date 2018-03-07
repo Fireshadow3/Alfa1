@@ -44,6 +44,21 @@ public class Main {
     		System.out.println(l1 + ": " + s + ";\t\tFrequenza relativa: " + percentage2 / 100 + ";\t Frequenza percentuale: " + percentage2 + "%");
     		l1++;
     	}
+    	
+    	System.out.println("------------------------------------\nRICERCA BINARIA");
+    	ArrayList<String> arr = new ArrayList<String>();
+    	arr.add("BAUBAU");
+    	arr.add("CANE");
+    	arr.add("GRULLOFORMI");
+    	arr.add("ZANZARA");
+    	CleanFile cf = new CleanFile();
+    	try{
+    		System.out.println("Posizione della stringa: " + cf.binarySearch(arr, "GRULLOFORMI"));}
+    		// cf.binarySearch(arr, "BAUBAU");}
+    	catch(StringNotFoundException a){
+    		System.out.println(a.toString());
+    	}
+    	// java.util.Arrays.binarySearc
     }
 
 }
