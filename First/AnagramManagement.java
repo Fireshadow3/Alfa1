@@ -11,7 +11,7 @@ import java.util.*;
  */
 
 public class AnagramManagement {
-	
+	private static final int MIN_LENGHT = 3;
 	// genera anagrammi
 	public ArrayList<String> anagramGenerator(String s) {
 		ArrayList<String> finalArrayList = new ArrayList<>();
@@ -49,5 +49,14 @@ public class AnagramManagement {
                 }
             }
             return substringAnagrams;
+        }
+        
+        public ArrayList<ArrayList<String>> SubstringAnagramsForWordLenghtGreaterThanThree(String word,
+                ArrayList<String> input_arraylist){
+            if(word.length() >= MIN_LENGHT && input_arraylist.contains(word)){
+                return SubstringsAnagrams(word);
+            }else{
+                return new ArrayList<>();
+            }
         }
 }
