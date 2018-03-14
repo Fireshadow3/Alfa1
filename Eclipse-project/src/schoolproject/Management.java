@@ -24,7 +24,7 @@ public class Management implements Constants, Getters {
     // vettore contenente tutte le lettere dell'alfabeto, associate all'indice
     HashMap<Character, Integer> lettersAbsoluteFrequencyMap;
     HashMap<Character, Integer> freqBetweenTwoWords;
-    
+
     /**
      * Costruisco l'oggetto Management
      *
@@ -151,7 +151,7 @@ public class Management implements Constants, Getters {
             reader.close();
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
         return wordsInDictionaryArrayList;
     }
@@ -187,7 +187,7 @@ public class Management implements Constants, Getters {
             }
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
         return counter;
     }
