@@ -195,7 +195,6 @@ public class Management implements Constants, Getters {
      * @return Un arraylist di stringhe contenente le parole comprese tra 3 e 7 lettere
      */
     public ArrayList<String> wordsBetweenThreeAndSevenLetters() {
-        //Apertuta del file, magari in UNICODE --> Decisione da prendere
         ArrayList<String> stringsInFile = new ArrayList<>();
         char c;
 
