@@ -39,7 +39,7 @@ public class Management implements Constants, Getters {
     /**
      * Ottiene l'ArrayList che contiene le parole del dizionario
      *
-     * @return L'array di stringhe contenente tutte le parole del dizionario
+     * @return l'ArrayList di stringhe contenente tutte le parole del dizionario
      */
     public ArrayList<String> getWordsInDictionaryArrayList() {
         return wordsInDictionaryArrayList;
@@ -49,25 +49,53 @@ public class Management implements Constants, Getters {
      * Ottiene l'ArrayList che contiene gli anagrammi di una parola
      * nel dizionario
      *
-     * @return L'array di stringhe contenente tutti gli anagrammi di
+     * @return l'ArrayList di stringhe contenente tutti gli anagrammi di
      * una parola nel dizionario
      */
     public ArrayList<String> getAnagramsInDictionary() {
         return anagramsInDictionary;
     }
-
+    
+    /**
+     * Ottiene l'ArrayList in cui ci sono gli anagrammi di una
+     * parola passata 
+     *
+     * @return l'ArrayList di stringhe che contiene gli anagrammi
+     * della parola 
+     */
     public ArrayList<String> getAnagrams() {
         return anagrams;
     }
 
+    /**
+     * Ottiene l'ArrayList in cui ci sono tutti gli anagrammi di tutte
+     * le sottostringhe di una parola
+     *
+     * @return l'ArrayList di stringhe che contiene tutti gli anagrammi
+     * di tutte le sottostringhe di una parola
+     */
     public ArrayList<ArrayList<String>> getSubstringAnagrams() {
         return substringAnagrams;
     }
 
+    /**
+     * Ottiene l'HashMap dove viene registrata l'occorrenza
+     * di ogni carattere nel dizionario
+     *
+     * @return l'HashMap dove viene registrata l'occorrenza
+     * di ogni carattere nel dizionario
+     */
     public HashMap<Character, Integer> getLettersAbsoluteFrequencyMap() {
         return lettersAbsoluteFrequencyMap;
     }
     
+    /**
+     * Ottiene l'HashMap dove viene registrata l'occorrenza
+     * di ogni carattere tra due parole del dizionario
+     *
+     * @return l'HashMap dove viene registrata l'occorrenza
+     * di ogni carattere tra due parole del dizionario
+     */
     public HashMap<Character, Integer> getFreqBetweenTwoWords() {
         return freqBetweenTwoWords;
     }
@@ -90,6 +118,14 @@ public class Management implements Constants, Getters {
         return output_file;
     }
 
+    /**
+     * Ottiene l'ArrayList di stringhe in cui ci sono le parole
+     * contenute nel dizionario, senza la parte oltre il simbolo '/'
+     *
+     * @return l'ArrayList di stringhe avente al suo interno
+     * le parole del dizionario, senza la parte oltre il simbolo '/'
+     */
+    
     // inserisce nel file di output tutte le parole prima di '/' del file dato in input
     public ArrayList<String> deleteWordsAfterSlashCharacter() {
         // stringa per leggere ogni riga del file
@@ -106,7 +142,7 @@ public class Management implements Constants, Getters {
             FileWriter fout = new FileWriter(getOutput_file());
             // oggetto writer
             BufferedWriter writer = new BufferedWriter(fout);
-            // oggetto reader con codifica dei caratteri UTF-16
+            // oggetto reader con codifica dei caratteri ISO-8859-1
             BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fin), ENCODING));
             while ((line = reader.readLine()) != null) {
                 if ((line.charAt(0) >= 'a' && line.charAt(0) <= 'z') || (line.charAt(0) >= 'A' && line.charAt(0) <= 'Z'))
@@ -126,6 +162,13 @@ public class Management implements Constants, Getters {
         return wordsInDictionaryArrayList;
     }
 
+    /**
+     * Conta le parole del dizionario avente lunghezza compresa
+     * tra 8 ed 11 caratteri, estremi inclusi
+     *
+     * @return il numero di parole del dizionario aventi lunghezza compresa
+     * tra 8 ed 11 caratteri, estremi inclusi
+     */
     // ritorna quante parole sono nel dizionario comprese tra 8 e 11 caratteri
     public int wordsBetweenEightAndElevenCharacters() {
         // file input
@@ -178,7 +221,7 @@ public class Management implements Constants, Getters {
         return stringsInFile;
     }
 
-    // scrive su file un arraylist delle parole comprese tra 3 e 7 lettere nel dizionario
+    // scrive su file l'arraylist delle parole comprese tra 3 e 7 lettere nel dizionario
     // che non iniziano con una maiuscola, eccezione fatta per gli acronimi
     public ArrayList<String> writeOnFileWordsBetweenThreeAndSevenLetters(String output_file) {
         ArrayList<String> stringsInFile = wordsBetweenThreeAndSevenLetters();
@@ -195,7 +238,7 @@ public class Management implements Constants, Getters {
         return stringsInFile;
     }
 
-    // genera anagrammi
+    // ge
     public ArrayList<String> anagramGenerator(String s) {
         ArrayList<String> finalArrayList = new ArrayList<>();
         if (s.length() <= 1)
