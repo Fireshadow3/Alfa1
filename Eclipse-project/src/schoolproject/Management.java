@@ -189,7 +189,7 @@ public class Management implements Constants, Getters {
     }
 
     /**
-     * Ottiene un arraylist che contiene le parole del dizionari comprese tra 8 e 11 caratteri che iniziano con una
+     * Ottiene un arraylist che contiene le parole del dizionari comprese tra 8 e 7 caratteri che iniziano con una
      * minuscola, eccetto gli acronimi
      *
      * @return Un arraylist di stringhe contenente le parole comprese tra 3 e 7 lettere
