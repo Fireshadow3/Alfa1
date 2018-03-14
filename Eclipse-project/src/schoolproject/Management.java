@@ -67,12 +67,7 @@ public class Management implements Constants, Getters {
     public HashMap<Character, Integer> getLettersAbsoluteFrequencyMap() {
         return lettersAbsoluteFrequencyMap;
     }
-
-    /**
-     * Ottiene l'ArrayList che contiene le parole del dizionario
-     *
-     * @return L'array di stringhe contenente tutte le parole del dizionario
-     */
+    
     public HashMap<Character, Integer> getFreqBetweenTwoWords() {
         return freqBetweenTwoWords;
     }
