@@ -109,7 +109,6 @@ public class Management implements Constants, Getters {
         return output_file;
     }
 
-
     /**
      * Ottiene l'arraylist che contiene le parole del dizionario prima del carattere '/'
      *
@@ -304,18 +303,17 @@ public class Management implements Constants, Getters {
      */
     public HashMap<Character, Integer> frequencyOfAlphabetLettersInDictionary() {
         TotalLettersInDictionary = 0;
-        HashMap<Character, Integer> LettersAbsoluteFrequency = new HashMap<>();
         for (String s : getWordsInDictionaryArrayList()) {
             s = s.toLowerCase();
             for (int i = 0; i < s.length(); i++, TotalLettersInDictionary++) {
                 char c = s.charAt(i);
-                if (LettersAbsoluteFrequency.containsKey(c))
-                    LettersAbsoluteFrequency.put(c, LettersAbsoluteFrequency.get(c) + 1);
+                if (getLettersAbsoluteFrequencyMap().containsKey(c))
+                    getLettersAbsoluteFrequencyMap().put(c, getLettersAbsoluteFrequencyMap().get(c) + 1);
                 else
-                    LettersAbsoluteFrequency.put(c, 1);
+                    getLettersAbsoluteFrequencyMap().put(c, 1);
             }
         }
-        return LettersAbsoluteFrequency;
+        return getLettersAbsoluteFrequencyMap();
     }
 
     /**
