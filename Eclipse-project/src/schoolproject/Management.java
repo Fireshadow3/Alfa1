@@ -49,8 +49,7 @@ public class Management implements Constants, Getters {
      * Ottiene l'ArrayList che contiene gli anagrammi di una parola
      * nel dizionario
      *
-     * @return L'array di stringhe contenente tutti gli anagrammi di
-     * una parola nel dizionario
+     * @return L'array di stringhe contenente tutti gli anagrammi di una parola nel dizionario
      */
     public ArrayList<String> getAnagramsInDictionary() {
         return anagramsInDictionary;
@@ -59,7 +58,7 @@ public class Management implements Constants, Getters {
     /**
      * Ottiene un ArrayList degli anagrammi generati
      *
-     * @return arraylist di stringhe
+     * @return Arraylist di stringhe
      */
     public ArrayList<String> getAnagrams() {
         return anagrams;
@@ -68,23 +67,23 @@ public class Management implements Constants, Getters {
     /**
      * Ottiene gli anagrammi delle sottostringhe degli anagrammi di una parola generati dal metodo substringsAnagrams
      *
-     * @return arraylist di arralist di stringhe
+     * @return Arraylist di arralist di stringhe
      */
     public ArrayList<ArrayList<String>> getSubstringAnagrams() {
         return substringAnagrams;
     }
 
     /**
-     * Ottiene un'hashmap con la percentuale assoluta assegnata ad ogni lettera
+     * Ottiene Un'hashmap con la percentuale assoluta assegnata ad ogni lettera
      *
-     * @return un'hashmap di Integer con chiave Character
+     * @return Un'hashmap di Integer con chiave Character
      */
     public HashMap<Character, Integer> getLettersAbsoluteFrequencyMap() {
         return lettersAbsoluteFrequencyMap;
     }
 
     /**
-     * Ottiene l'ArrayList che contiene le parole del dizionario
+     * Ottiene l'arraylist che contiene le parole del dizionario
      *
      * @return L'array di stringhe contenente tutte le parole del dizionario
      */
@@ -112,7 +111,7 @@ public class Management implements Constants, Getters {
 
 
     /**
-     * Ottiene l'ArrayList che contiene le parole del dizionario prima del carattere '/'
+     * Ottiene l'arraylist che contiene le parole del dizionario prima del carattere '/'
      *
      * @return Un arraylist di stringhe contenente le parole inserite nel file prima del carattere '/'
      */
@@ -189,7 +188,7 @@ public class Management implements Constants, Getters {
     }
 
     /**
-     * Ottiene un arraylist che contiene le parole del dizionari comprese tra 3 e 7 caratteri che iniziano con una
+     * Ottiene un arraylist che contiene le parole del dizionario comprese tra 3 e 7 caratteri che iniziano con una
      * minuscola, eccetto gli acronimi
      *
      * @return Un arraylist di stringhe contenente le parole comprese tra 3 e 7 lettere
@@ -215,8 +214,8 @@ public class Management implements Constants, Getters {
     /**
      * Scrive su un file tutte le parole del dizionario comprese tra 3 e 7 caratteri che iniziano con una
      * minuscola, eccetto gli acronimi
-     * 
-     * @param output_file file su cui scrivere le parole
+     *
+     * @param output_file File su cui scrivere le parole
      * @return            Un arraylist di stringhe contenente le parole scritte sul file
      */
     public ArrayList<String> writeOnFileWordsBetweenThreeAndSevenLetters(String output_file) {
@@ -237,7 +236,7 @@ public class Management implements Constants, Getters {
     /**
      * Genera tutti gli anagrammi di una stringa data in input
      *
-     * @param s Parola di cui generare gli anagrammi
+     * @param s Stringa di cui generare gli anagrammi
      * @return  Un arraylist di stringhe contenente gli anagrammi della parola esaminata
      */
     public ArrayList<String> anagramGenerator(String s) {
@@ -288,8 +287,8 @@ public class Management implements Constants, Getters {
     /**
      * Genera gli anagrammi delle sottostringhe di una parola di lunghezza uguale o superiore a 3 lettere
      *
-     * @param input_word stringa di cui generare gli anagrammi
-     * @return     Un arraylist di stringhe contenente le parole scritte sul file
+     * @param input_word Stringa di cui generare gli anagrammi
+     * @return           Un arraylist di stringhe contenente le parole scritte sul file
      */
     public ArrayList<ArrayList<String>> substringAnagramsForWordLengthGreaterThanThree(String input_word) {
         if (input_word.length() >= MIN_LENGHT_ANAG && getWordsInDictionaryArrayList().contains(input_word))
@@ -301,7 +300,7 @@ public class Management implements Constants, Getters {
     /**
      * Calcola ricorrenza delle lettere nel dizionario
      *
-     * @return un'hashmap con le varie frequenze delle lettere
+     * @return Un'hashmap con le varie frequenze delle lettere
      */
     public HashMap<Character, Integer> frequencyOfAlphabetLettersInDictionary() {
         TotalLettersInDictionary = 0;
@@ -320,21 +319,11 @@ public class Management implements Constants, Getters {
     }
 
     /**
-     * Ritorna il prodotto del numero in input per 100
-     *
-     * @param i numero sul quale eseguire la moltiplicazione
-     * @return  il prodotto tra il numero in input e 100
-     */
-    public double percentageFrequency(double i) {
-        return i * 100;
-    }
-
-    /**
      * Ritorna un array list delle stringhe comprese tra due parole date in input
      *
-     * @param prima parola
-     * @param ultima parola
-     * @return una lista di stringhe contenente le parole nel dizionario comprese tra parola e parola
+     * @param input_firstWord Stringa da cui iniziare
+     * @param input_lastWord  Stringa a cui finire
+     * @return                Una lista di stringhe contenente le parole nel dizionario comprese tra parola e parola
      */
     public List<String> extraction(String input_firstWord, String input_lastWord) {
         int fromIndex = getWordsInDictionaryArrayList().indexOf(input_firstWord),
@@ -345,9 +334,9 @@ public class Management implements Constants, Getters {
     /**
      * Calcola la ricorrenza delle lettere dell'alfabeto come percentuale, da una parola ad un'altra
      *
-     * @param input_firstWord parola da cui iniziare la ricerca
-     * @param input_lastWord  parola che identifica la fine della ricerca
-     * @return                un'hashmap con la frequenza delle lettere
+     * @param input_firstWord Strigna da cui iniziare la ricerca
+     * @param input_lastWord  Stringa che identifica la fine della ricerca
+     * @return                Un'hashmap con la frequenza delle lettere
      */
     public HashMap<Character, Integer> frequencyOfAlphabetLetterInDictionaryFromAWordToAnother(String input_firstWord,
                                                                                                String input_lastWord) {
