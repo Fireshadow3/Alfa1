@@ -112,7 +112,7 @@ public class Management implements Constants, Getters {
 
 
     /**
-     * Ottiene l'ArrayList che contiene le parole del dizionario dopo lo slash
+     * Ottiene l'ArrayList che contiene le parole del dizionario prima del carattere '/'
      *
      * @return Un arraylist di stringhe contenente le parole inserite nel file prima del carattere '/'
      */
