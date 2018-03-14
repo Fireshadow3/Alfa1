@@ -336,7 +336,7 @@ public class Management implements Constants, Getters {
      * @param input_lastWord  Stringa che identifica la fine della ricerca
      * @return                Una hashmap con la frequenza delle lettere
      */
-    public HashMap<Character, Integer> frequencyOfAlphabetLetterInDictionaryFromAWordToAnother(String input_firstWord,
+    public HashMap<Character, Integer> frequencyOfAlphabetLettersInDictionaryFromAWordToAnother(String input_firstWord,
                                                                                                String input_lastWord) {
         TotalLettersBetweenTwoWords = 0;
         // array di frequenze assolute
