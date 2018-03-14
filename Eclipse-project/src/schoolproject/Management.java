@@ -24,7 +24,13 @@ public class Management implements Constants, Getters {
     // vettore contenente tutte le lettere dell'alfabeto, associate all'indice
     HashMap<Character, Integer> lettersAbsoluteFrequencyMap;
     HashMap<Character, Integer> freqBetweenTwoWords;
-
+    
+    /**
+     * Costruisco l'oggetto Management
+     *
+     * @param _input_file  File di input
+     * @param _output_file File di output
+     */
     public Management(String _input_file, String _output_file) {
         this.input_file = _input_file;
         this.output_file = _output_file;
