@@ -189,7 +189,7 @@ public class Management implements Constants, Getters {
     }
 
     /**
-     * Ottiene un arraylist che contiene le parole del dizionari comprese tra 8 e 7 caratteri che iniziano con una
+     * Ottiene un arraylist che contiene le parole del dizionari comprese tra 3 e 7 caratteri che iniziano con una
      * minuscola, eccetto gli acronimi
      *
      * @return Un arraylist di stringhe contenente le parole comprese tra 3 e 7 lettere
@@ -213,10 +213,11 @@ public class Management implements Constants, Getters {
     }
 
     /**
-     * Scrive su un file tutte le parole del dizionario comprese tra 3 e 7 lettere che non iniziano con una maiuscola,
-     * fatta eccezione per gli acronimi
-     *
-     * @return Un arraylist di stringhe contenente le parole scritte sul file
+     * Scrive su un file tutte le parole del dizionario comprese tra 3 e 7 caratteri che iniziano con una
+     * minuscola, eccetto gli acronimi
+     * 
+     * @param output_file file su cui scrivere le parole
+     * @return            Un arraylist di stringhe contenente le parole scritte sul file
      */
     public ArrayList<String> writeOnFileWordsBetweenThreeAndSevenLetters(String output_file) {
         ArrayList<String> stringsInFile = wordsBetweenThreeAndSevenLetters();
@@ -255,9 +256,9 @@ public class Management implements Constants, Getters {
     }
 
     /**
-     * Conta il numero di ricorrenze di ogni anagramma di una stringa data in input nel file dizionario
+     * Ottiene le ricorrenze di ogni anagramma di una stringa data in input nel file dizionario
      *
-     * @param input_word stringa di cui generare anagrammi
+     * @param input_word Stringa di cui generare anagrammi
      * @return           Un arraylist di stringhe contenente le parole scritte sul file
      */
     public ArrayList<String> anagramsInAnArrayList(String input_word) {
@@ -274,28 +275,25 @@ public class Management implements Constants, Getters {
     /**
      * Genera tutti gli anagrammi di ogni sottostringa della parola data in input
      *
-     * @param input_word stringa di cui generare gli anagrammi
+     * @param input_word Stringa delle cui sottostringhe generare gli anagrammi
      * @return           Un arraylist di stringhe contenente le parole scritte sul file
      */
     public ArrayList<ArrayList<String>> substringsAnagrams(String input_word) {
-        ArrayList<ArrayList<String>> substringAnagrams = new ArrayList<>();
-        int i, j;
-
-        for (i = 0; i < input_word.length(); i++)
-            for (j = i + 1; j <= input_word.length(); j++)
-                substringAnagrams.add(anagramGenerator(input_word.substring(i, j)));
-        return substringAnagrams;
+        for (int i = 0; i < input_word.length(); i++)
+            for (int j = i + 1; j <= input_word.length(); j++)
+                getSubstringAnagrams().add(anagramGenerator(input_word.substring(i, j)));
+        return getSubstringAnagrams();
     }
 
     /**
      * Genera gli anagrammi delle sottostringhe di una parola di lunghezza uguale o superiore a 3 lettere
      *
-     * @param word stringa di cui generare gli anagrammi
+     * @param input_word stringa di cui generare gli anagrammi
      * @return     Un arraylist di stringhe contenente le parole scritte sul file
      */
-    public ArrayList<ArrayList<String>> substringAnagramsForWordLengthGreaterThanThree(String word) {
-        if (word.length() >= MIN_LENGHT_ANAG && getWordsInDictionaryArrayList().contains(word))
-            return substringsAnagrams(word);
+    public ArrayList<ArrayList<String>> substringAnagramsForWordLengthGreaterThanThree(String input_word) {
+        if (input_word.length() >= MIN_LENGHT_ANAG && getWordsInDictionaryArrayList().contains(input_word))
+            return substringsAnagrams(input_word);
         else
             return new ArrayList<>();
     }
