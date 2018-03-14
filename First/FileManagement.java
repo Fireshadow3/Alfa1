@@ -19,13 +19,15 @@ public class FileManagement {
 	static final int MIN_LENGTH_TO_FILE = 3;
 	
 	// inserisce nel file di output tutte le parole prima di '/' del file dato in input
-	public ArrayList<String> deleteWordsAfterSlashCharacter(String input_file, String output_file) throws IOException {
+	public ArrayList<String> deleteWordsAfterSlashCharacter(String input_file,
+                String output_file)throws IOException {
 		// file input
 		File fin = new File(input_file);
 		// file output
 		FileWriter fout = new FileWriter(output_file);
 		// oggetto reader con codifica dei caratteri UTF-16
-		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fin), "UTF-16"));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+                        new FileInputStream(fin), "UTF-16"));
 		// oggetto writer
 		BufferedWriter writer = new BufferedWriter(fout);
 		// stringa per leggere ogni riga del file
@@ -38,7 +40,8 @@ public class FileManagement {
 		ArrayList<String> finalArrayList = new ArrayList<>();
 
 		while ((line = reader.readLine()) != null) {
-			if ((line.charAt(0) >= 'a' && line.charAt(0) <= 'z') || (line.charAt(0) >= 'A' && line.charAt(0) <= 'Z'))
+			if ((line.charAt(0) >= 'a' && line.charAt(0) <= 'z') || 
+                                (line.charAt(0) >= 'A' && line.charAt(0) <= 'Z'))
 				elementsInTheFile.add(line);
 		}
 		// inserisco i caratteri nell'array e stampo
@@ -57,7 +60,8 @@ public class FileManagement {
 		// file input
 		File fin = new File(input_file);
 		// oggetto reader con codifica dei caratteri UTF-16
-		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fin), "UTF-16"));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+                        new FileInputStream(fin), "UTF-16"));
 		// stringa per leggere ogni riga del file
 		String line;
 		// ArrayList per rimuovere tutte le parole dopo '/'
@@ -66,14 +70,16 @@ public class FileManagement {
 		String[] finalWords;
 
 		while ((line = reader.readLine()) != null) {
-			if ((line.charAt(0) >= 'a' && line.charAt(0) <= 'z') || (line.charAt(0) >= 'A' && line.charAt(0) <= 'Z'))
+			if ((line.charAt(0) >= 'a' && line.charAt(0) <= 'z') || 
+                                (line.charAt(0) >= 'A' && line.charAt(0) <= 'Z'))
 				words.add(line);
 		}
 		int counter = 0;
 		// controllo la lunghezza della parola
 		for (String element : words) {
 			finalWords = element.split("/");
-			if (finalWords[0].length() <= MAX_LENGTH && finalWords[0].length() >= MIN_LENGTH) {
+			if (finalWords[0].length() <= MAX_LENGTH && 
+                                finalWords[0].length() >= MIN_LENGTH) {
 				counter++;
 			}
 		}
@@ -81,20 +87,39 @@ public class FileManagement {
 		return counter;
 	}
         
-        public ArrayList<String> WriteOnFileWordsBetweenThreeAndSevenLetters(
-        String filename, ArrayList<String> input){
+        public ArrayList<String> SelectWordsBetweenThreeAndSevenLetters(
+        ArrayList<String> input){
             //Apertuta del file, magari in UNICODE --> Decisione da prendere
             ArrayList<String> StringsOnFile = new ArrayList<>();
             char c;
             
             for(String s : input){
-                c = s.charAt(0);
-                if(!(c >= 65 && c <= 90)){
-                    if(s.length() >= MIN_LENGTH_TO_FILE && s.length() <= MAX_LENGTH_TO_FILE){
-                        StringsOnFile.add(s);
+                if(s.equals(s.toUpperCase())){
+                    StringsOnFile.add(s);
+                }else{
+                    c = s.charAt(0);
+                    if(!(c >= 65 && c <= 90)){
+                        if(s.length() >= MIN_LENGTH_TO_FILE &&
+                                s.length() <= MAX_LENGTH_TO_FILE){
+                            StringsOnFile.add(s);
+                        }
                     }
                 }
             }
+            return StringsOnFile;
+        }
+        
+        public ArrayList<String> WriteOnFileWordsBetweenThreeAndSevenLetters
+        (String output_file, ArrayList<String> input) throws IOException{
+            FileWriter fout = new FileWriter(output_file);
+            BufferedWriter writer = new BufferedWriter(fout);
+            ArrayList<String> StringsOnFile = SelectWordsBetweenThreeAndSevenLetters(input);
+            
+            for(String s : StringsOnFile){
+                writer.write(s);
+                writer.newLine();
+            }
+            writer.close();
             return StringsOnFile;
         }
 }
