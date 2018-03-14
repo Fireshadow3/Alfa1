@@ -37,7 +37,7 @@ public class Management implements Constants, Getters {
     }
 
     /**
-     * Ottiene l'ArrayList che contiene le parole del dizionario
+     * Ottiene l'Arraylist che contiene le parole del dizionario
      *
      * @return L'array di stringhe contenente tutte le parole del dizionario
      */
@@ -46,7 +46,7 @@ public class Management implements Constants, Getters {
     }
 
     /**
-     * Ottiene l'ArrayList che contiene gli anagrammi di una parola
+     * Ottiene l'Arraylist che contiene gli anagrammi di una parola
      * nel dizionario
      *
      * @return L'array di stringhe contenente tutti gli anagrammi di una parola nel dizionario
@@ -56,7 +56,7 @@ public class Management implements Constants, Getters {
     }
 
     /**
-     * Ottiene un ArrayList degli anagrammi generati
+     * Ottiene un Arraylist degli anagrammi generati
      *
      * @return Arraylist di stringhe
      */
@@ -74,9 +74,9 @@ public class Management implements Constants, Getters {
     }
 
     /**
-     * Ottiene Un'hashmap con la percentuale assoluta assegnata ad ogni lettera
+     * Ottiene una hashmap con la percentuale assoluta assegnata ad ogni lettera
      *
-     * @return Un'hashmap di Integer con chiave Character
+     * @return Una hashmap di Integer con chiave Character
      */
     public HashMap<Character, Integer> getLettersAbsoluteFrequencyMap() {
         return lettersAbsoluteFrequencyMap;
@@ -300,7 +300,7 @@ public class Management implements Constants, Getters {
     /**
      * Calcola ricorrenza delle lettere nel dizionario
      *
-     * @return Un'hashmap con le varie frequenze delle lettere
+     * @return Una hashmap con le varie frequenze delle lettere
      */
     public HashMap<Character, Integer> frequencyOfAlphabetLettersInDictionary() {
         TotalLettersInDictionary = 0;
@@ -334,9 +334,9 @@ public class Management implements Constants, Getters {
     /**
      * Calcola la ricorrenza delle lettere dell'alfabeto come percentuale, da una parola ad un'altra
      *
-     * @param input_firstWord Strigna da cui iniziare la ricerca
+     * @param input_firstWord Stringa da cui iniziare la ricerca
      * @param input_lastWord  Stringa che identifica la fine della ricerca
-     * @return                Un'hashmap con la frequenza delle lettere
+     * @return                Una hashmap con la frequenza delle lettere
      */
     public HashMap<Character, Integer> frequencyOfAlphabetLetterInDictionaryFromAWordToAnother(String input_firstWord,
                                                                                                String input_lastWord) {
