@@ -1,5 +1,14 @@
-package schoolproject;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package progettobello;
 
+/**
+ *
+ * @author Fabio
+ */
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,7 +17,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -145,7 +153,8 @@ public class Management implements Constants, Getters {
             // inserisco i caratteri nell'array e stampo
             for (String element : elementsInFile) {
                 finalWords = element.split("/");
-                writer.write(finalWords[0] + "\n");
+                writer.write(finalWords[0]);
+                writer.newLine();
                 getWordsInDictionaryArrayList().add(finalWords[0]);
             }
             reader.close();
@@ -200,17 +209,14 @@ public class Management implements Constants, Getters {
      */
     public ArrayList<String> wordsBetweenThreeAndSevenLetters() {
         ArrayList<String> stringsInFile = new ArrayList<>();
-        char c;
+        char c = 'a';
 
         for (String s : getWordsInDictionaryArrayList()) {
-            if (s.equals(s.toUpperCase()))
-                stringsInFile.add(s);
-            else {
+            if ((s.length() >= MIN_LENGTH_TO_FILE && 
+                    s.length() <= MAX_LENGTH_TO_FILE)){
                 c = s.charAt(0);
-                if (!(c >= 65 && c <= 90))
-                    if (s.length() >= MIN_LENGTH_TO_FILE &&
-                            s.length() <= MAX_LENGTH_TO_FILE)
-                        stringsInFile.add(s);
+                if(s.equals(s.toUpperCase()) || !(c >= 65 && c <= 90))
+                    stringsInFile.add(s);
             }
         }
         return stringsInFile;
@@ -229,11 +235,13 @@ public class Management implements Constants, Getters {
             FileWriter fout = new FileWriter(output_file);
             BufferedWriter writer = new BufferedWriter(fout);
 
-            for (String s : stringsInFile)
-                writer.write(s + "\n");
+            for (String s : stringsInFile){
+                writer.write(s);
+                writer.newLine();
+            }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
         return stringsInFile;
     }
@@ -268,7 +276,7 @@ public class Management implements Constants, Getters {
     public ArrayList<String> anagramsInAnArrayList(String input_word) {
         ArrayList<String> result = new ArrayList<>();
         // ArrayList anagrammi
-        ArrayList<String> anagrams = anagramGenerator(input_word);
+        anagrams = anagramGenerator(input_word);
         for (String s : getWordsInDictionaryArrayList())
             for (String s1 : anagrams)
                 if (s.equalsIgnoreCase(s1))
@@ -332,7 +340,7 @@ public class Management implements Constants, Getters {
     public List<String> extraction(String input_firstWord, String input_lastWord) {
         int fromIndex = getWordsInDictionaryArrayList().indexOf(input_firstWord),
                 toIndex = getWordsInDictionaryArrayList().indexOf(input_lastWord);
-        return getWordsInDictionaryArrayList().subList(fromIndex, toIndex);
+        return getWordsInDictionaryArrayList().subList(fromIndex, toIndex + 1);
     }
 
     /**
