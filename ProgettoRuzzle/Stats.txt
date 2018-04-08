@@ -1,0 +1,4 @@
+Number of games: 0
+Maximum score: 0
+Average number of words: 0
+Average score: 0

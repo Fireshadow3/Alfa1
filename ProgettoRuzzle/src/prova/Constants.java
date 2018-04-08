@@ -18,4 +18,7 @@ public interface Constants {
     // numero minimo per metodo substringAnagramsForWordLengthGreaterThanThree()
     static final int MIN_LENGTH_ANAG = 3;
     static final String BUTTON_COLOR = "-fx-background-color: #ff471a";
+    static final String ITA_DIC = "in.txt";
+    static final String RECORD_FILE = "bestScore.txt";
+    static final String STATS_FILE = "Stats.txt";
 }
