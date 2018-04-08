@@ -66,6 +66,8 @@ public class FXMLDocumentController implements Initializable, Constants {
     @FXML
     private Button letter7Button;
     @FXML
+    private Button BTN_Language;
+    @FXML
     private ChoiceBox difficultyChoice;
     @FXML
     private TextField bestScoreTextField;
@@ -510,5 +512,34 @@ public class FXMLDocumentController implements Initializable, Constants {
         letter6Button.setDisable(true);
         letter7Button.setDisable(true); 
         */
+    }
+
+        
+    /**
+     * Cambia la lingua del dizionario
+     */
+    public void changeLanguage(){
+        //Se è italiano cambio in inglese
+        if(BTN_Language.getText().equals("IT")){
+            //Cambio il dizionario
+            //Creo un nuovo dizionario con la lingua diversa però
+            Management new_dictionary;
+            new_dictionary = new Management(ENG_DIC, "out.txt");
+            man = new_dictionary;
+            //Cambio label
+            //BUG non posso settarlo subito su "EN", ma posso cambiarlo in altro e poi in EN
+            BTN_Language.setText("EN");
+            //BTN_Language.setText("EN");
+        }
+        //Se è inglese cambio in italiano
+        else if(BTN_Language.getText().equals("EN")){
+            //Cambio il dizionario
+            //Creo un nuovo dizionario con la lingua diversa però
+            Management new_dictionary;
+            new_dictionary = new Management(ITA_DIC, "out.txt");
+            man = new_dictionary;
+            //Cambio label
+            BTN_Language.setText("IT");
+        }
     }
 }
