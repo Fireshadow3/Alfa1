@@ -21,11 +21,15 @@
                      <children>
                         <Label fx:id="scoreLabel" prefHeight="55.0" prefWidth="40.0" text="Score:" />
                         <TextField fx:id="scoreTextField" prefHeight="30.0" prefWidth="42.0" />
-                        <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <Label prefHeight="33.0" prefWidth="55.0" text="Time = " />
+                        <Label prefHeight="30.0" prefWidth="46.0" text="Time = " />
                         <TextField fx:id="timeMinTextField" prefHeight="30.0" prefWidth="31.0" />
                         <Label alignment="CENTER" prefHeight="32.0" prefWidth="37.0" text=":" />
                         <TextField fx:id="timeSecTextField" prefHeight="30.0" prefWidth="32.0" />
+                        <HBox alignment="CENTER" prefHeight="30.0" prefWidth="126.0">
+                           <children>
+                              <Button fx:id="endGameButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#endGame" prefHeight="40.0" prefWidth="71.0" text="End Game" />
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                   <Separator layoutY="322.0" prefHeight="11.0" prefWidth="357.0" />
@@ -37,8 +41,14 @@
                   </HBox>
                   <ToolBar fx:id="difficultyToolBar" prefHeight="47.0" prefWidth="357.0">
                      <items>
-                        <Label fx:id="difficultyLabel" prefHeight="26.0" prefWidth="58.0" text="Difficulty:" />
-                        <ChoiceBox fx:id="difficultyChoice" prefWidth="150.0" />
+                        <Label fx:id="difficultyLabel" prefHeight="26.0" prefWidth="52.0" text="Difficulty:" />
+                        <ChoiceBox fx:id="difficultyChoice" prefHeight="25.0" prefWidth="76.0" />
+                        <HBox prefHeight="37.0" prefWidth="181.0">
+                           <children>
+                              <Label prefHeight="37.0" prefWidth="69.0" text="Best score =" />
+                              <TextField fx:id="bestScoreTextField" prefHeight="37.0" prefWidth="45.0" />
+                           </children>
+                        </HBox>
                      </items>
                   </ToolBar>
                   <Separator layoutY="288.0" prefHeight="4.0" prefWidth="357.0" />
