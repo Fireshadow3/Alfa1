@@ -44,11 +44,11 @@
                         <Label fx:id="difficultyLabel" prefHeight="26.0" prefWidth="52.0" text="Difficulty:" />
                         <ChoiceBox fx:id="difficultyChoice" prefHeight="25.0" prefWidth="76.0" />
                         <HBox prefHeight="37.0" prefWidth="181.0">
-                           <children>
+                            <children>
                               <Label prefHeight="37.0" prefWidth="69.0" text="Best score =" />
                               <TextField fx:id="bestScoreTextField" prefHeight="37.0" prefWidth="45.0" />
                               <Button fx:id="BTN_Language" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#changeLanguage" text="IT" textAlignment="CENTER" />
-                           </children>
+                            </children>
                         </HBox>
                      </items>
                   </ToolBar>

@@ -23,7 +23,6 @@ public class TextFile {
     
     public TextFile(String filename, char mode){
         this.mode = mode;
-        
         try{
             if(this.mode == 'W' || this.mode == 'w'){
                 writer = new BufferedWriter(new FileWriter(filename));

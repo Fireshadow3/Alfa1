@@ -1,4 +1,10 @@
-Number of games: 0
-Maximum score: 0
-Average number of words: 0
-Average score: 0
+Number of games=1
+Maximum score=14
+
+Average number of words found=4
+
+Average score=16
+
+Total score=16
+
+Total words found=4

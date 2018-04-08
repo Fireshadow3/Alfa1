@@ -18,29 +18,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import java.util.Stack;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
-import static prova.Constants.ENCODING;
-
 
 /**
  *
  * @author Fabio
  */
 public class FXMLDocumentController implements Initializable, Constants {
-    @FXML
-    private AnchorPane mainContainer;
     @FXML
     private TextField scoreTextField;
     @FXML
@@ -66,19 +52,16 @@ public class FXMLDocumentController implements Initializable, Constants {
     @FXML
     private Button letter7Button;
     @FXML
-    private Button BTN_Language;
-    @FXML
     private ChoiceBox difficultyChoice;
     @FXML
     private TextField bestScoreTextField;
+    @FXML
+    private Button BTN_Language;
     private Management man;
+    private Statistics stats;
     private LinkedList<Button> buttonLinkedList;
     private Stack<Button> selectedButtons;
-    private String concWordsTyped;
-    private static final Integer STARTTIME = 15;
-    private Timeline timeline;
-    private Label timerLabel = new Label();
-    private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);        
+    private String concWordsTyped;        
     
     public int scoringSwitchCase(int length){
         switch(length){
@@ -110,15 +93,20 @@ public class FXMLDocumentController implements Initializable, Constants {
             for (String param : man.getWordsInDictionaryArrayList()) {
                 if (s.equalsIgnoreCase(param) && s.length() > 2) {
                     if (!(wordsFoundTextArea.getText().contains(s))){
+                        stats.setTotWordsFound(stats.getTotWordsFound() + 1);
                         wordFromKeyboardTextField.clear();
                         wordsFoundTextArea.setText(wordsFoundTextArea.getText() + (s + "\n"));
                         wordsFoundTextArea.setStyle("-fx-text-color: #2f2f1e");
                         prevScore = Integer.parseInt(scoreTextField.getText());
                         actScore = scoringSwitchCase(s.length());
+                        stats.setTotScore(stats.getTotScore() + actScore);
                         scoreTextField.setText("" + (prevScore + actScore));
                         if(Integer.parseInt(scoreTextField.getText()) > bestScore){
                             bestScoreTextField.setText(scoreTextField.getText());
                             updateBestScore(Integer.parseInt(scoreTextField.getText()));
+                            updateStatistics(bestScore, 
+                                    stats.getTotScore() / stats.getGamesNum(),
+                                    stats.getTotWordsFound() / stats.getGamesNum());
                         }
                         for (Button b : selectedButtons) {
                             b.setStyle(null);
@@ -310,34 +298,21 @@ public class FXMLDocumentController implements Initializable, Constants {
             numbersSelected.add(index);
         }
         System.out.println(word);
-    }
-    
-    public EventHandler<KeyEvent> letter_Validation(final Integer max_Lengh) {
-        return new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent e) {
-            /*TextField txt_TextField = (TextField) e.getSource();                
-            if (txt_TextField.getText().length() >= max_Lengh) {                    
-                e.consume();
-            }*/
-            for(Button b : buttonLinkedList)
-                if(b.getText().equalsIgnoreCase(e.getText()))
-                    return;
-            e.consume();
-        }
-    };
     } 
     
     public void updateBestScore(int newBestScore) throws IOException{
         TextFile f = new TextFile(RECORD_FILE, 'w');
         f.toFile("" + newBestScore);
         f.close();
-        /*System.out.println(newBestScore);
-        FileWriter fout = new FileWriter(RECORD_FILE);
-        BufferedWriter w = new BufferedWriter(fout);
-        w.write(newBestScore);
-        w.newLine();
-        w.close();*/
+    }
+    
+    public void updateStatistics(int maxScore, int avScore, int avWordsNum) throws IOException{
+        TextFile fout = new TextFile(STATS_FILE, 'W');
+        stats.setMaxScore(maxScore);
+        stats.setAvScore(avScore);
+        stats.setAvWordsNum(avWordsNum);
+        fout.toFile(stats.tostring());
+        fout.close();
     }
     
     public void loadBestScore() throws FileNotFoundException, UnsupportedEncodingException, IOException{
@@ -346,21 +321,43 @@ public class FXMLDocumentController implements Initializable, Constants {
         while((line = f.fromFile()) != null)
             bestScoreTextField.setText(line);
         f.close();
-        /*String line;
-        File fin = new File(RECORD_FILE);
-        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(fin), ENCODING));
-        while((line = r.readLine()) != null){
-            System.out.println(line);
-            bestScoreTextField.setText(line);
+    }
+    
+        public void changeLanguage(){
+        //Se è italiano cambio in inglese
+        if(BTN_Language.getText().equals("IT")){
+            //Cambio il dizionario
+            //Creo un nuovo dizionario con la lingua diversa però
+            Management new_dictionary;
+            new_dictionary = new Management(ENG_DIC, "out.txt");
+            man = new_dictionary;
+            //Cambio label
+            //BUG non posso settarlo subito su "EN", ma posso cambiarlo in altro e poi in EN
+            BTN_Language.setText("EN");
+            //BTN_Language.setText("EN");
         }
-        r.close();*/
+        //Se è inglese cambio in italiano
+        else if(BTN_Language.getText().equals("EN")){
+            //Cambio il dizionario
+            //Creo un nuovo dizionario con la lingua diversa però
+            Management new_dictionary;
+            new_dictionary = new Management(ITA_DIC, "out.txt");
+            man = new_dictionary;
+            //Cambio label
+            BTN_Language.setText("IT");
+        }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         man = new Management(ITA_DIC, "out.txt");
-        // buttonInitializing();
+        try{
+            stats = new Statistics();
+        }catch(Exception e){
+            System.err.println("Errore nel caricamento delle statistiche");
+        }
         man.deleteWordsAfterSlashCharacter();
+        stats.setGamesNum(stats.getGamesNum() + 1);
         selectedButtons = new Stack<>();
         concWordsTyped = "";
         try {
@@ -512,34 +509,5 @@ public class FXMLDocumentController implements Initializable, Constants {
         letter6Button.setDisable(true);
         letter7Button.setDisable(true); 
         */
-    }
-
-        
-    /**
-     * Cambia la lingua del dizionario
-     */
-    public void changeLanguage(){
-        //Se è italiano cambio in inglese
-        if(BTN_Language.getText().equals("IT")){
-            //Cambio il dizionario
-            //Creo un nuovo dizionario con la lingua diversa però
-            Management new_dictionary;
-            new_dictionary = new Management(ENG_DIC, "out.txt");
-            man = new_dictionary;
-            //Cambio label
-            //BUG non posso settarlo subito su "EN", ma posso cambiarlo in altro e poi in EN
-            BTN_Language.setText("EN");
-            //BTN_Language.setText("EN");
-        }
-        //Se è inglese cambio in italiano
-        else if(BTN_Language.getText().equals("EN")){
-            //Cambio il dizionario
-            //Creo un nuovo dizionario con la lingua diversa però
-            Management new_dictionary;
-            new_dictionary = new Management(ITA_DIC, "out.txt");
-            man = new_dictionary;
-            //Cambio label
-            BTN_Language.setText("IT");
-        }
     }
 }

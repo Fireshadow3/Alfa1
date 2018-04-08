@@ -401,7 +401,6 @@ public class Management implements Constants, Getters, FileManagement, Dictionar
     *
     * @return parola estratta casualmente
     */
-    
     public String startingWord(){
         Random rand = new Random();
         for(String s : getWordsInDictionaryArrayList())
