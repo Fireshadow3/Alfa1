@@ -1,6 +1,0 @@
-Number of games=2
-Maximum score=28
-Average number of words found=1
-Average score=6
-Total score=13
-Total words found=2

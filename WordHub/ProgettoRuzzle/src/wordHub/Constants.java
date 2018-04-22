@@ -86,6 +86,11 @@ public interface Constants {
     static final String STATS_FILE = "Stats.txt";
     
     /**
+     * Nome del file in cui salvare le parole,prive delle regole dei suffissi
+     */
+    static final String CLEAN_DICTIONARY_FILE = "out.txt";
+    
+    /**
      * Tempo in difficoltà facile
      * {@link FXMLDocumentController#changeTimeValue()}
      */

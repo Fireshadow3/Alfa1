@@ -181,41 +181,35 @@ public class FXMLDocumentController implements Initializable, Constants {
     private ComboBox<String> diffBox;
     
     /**
-     * Gestisce la pressione di un bottone generico
-     * @param button bottone premuto
-     * @throws IOException
+     * Ricerca una stringa all'interno del dizionario: se è presente, 
+     * aggiorna il punteggio e l'interfaccia
+     * 
+     * @param s stringa da ricercare
+     * @throws IOException 
      */
-    public void handleGeneralButtonAction(Button button) throws IOException {
+    private void stringResearchInDictionary(String s) throws IOException{
         int prevScore, actScore, bestScore = Integer.parseInt(
                 bestScoreTextField.getText());
-        if (!(button.getStyle().equalsIgnoreCase(BUTTON_COLOR))) {
-            button.setStyle(BUTTON_COLOR);
-            selectedButtons.add(button);
-            if (selectedButtons.size() - 1 > 0) {
-                selectedButtons.get(selectedButtons.size() - 2).setDisable(true);
-            }
-            wordFromKeyboardTextField.setText(wordFromKeyboardTextField.getText() + 
-                            button.getText());
-            String s = wordFromKeyboardTextField.getText();
-            for (String param : getWordsInDictionaryArrayList()) {
+        for (String param : getWordsInDictionaryArrayList()) {
                 if (s.equalsIgnoreCase(param) && s.length() > 2) {
                     if (!(wordsFoundTextArea.getText().contains(s))) {
-                        stats.setTotWordsFound(stats.getTotWordsFound() + 1);
+//                        stats.setTotWordsFound(stats.getTotWordsFound() + 1);
                         wordFromKeyboardTextField.clear();
                         wordsFoundTextArea.setText(wordsFoundTextArea.getText() + (s + "\n"));
                         wordsFoundTextArea.setStyle("-fx-text-color: #2f2f1e");
                         prevScore = Integer.parseInt(scoreTextField.getText());
                         actScore = scoringSwitchCase(s.length());
-                        stats.setTotScore(stats.getTotScore() + actScore);
+//                        stats.setTotScore(stats.getTotScore() + actScore);
                         scoreTextField.setText("" + (prevScore + actScore));
                         if (Integer.parseInt(scoreTextField.getText()) > bestScore) {
                             bestScoreTextField.setText(scoreTextField.getText());
                             updateBestScore(Integer.parseInt(scoreTextField.getText()));
                             bestScore = Integer.parseInt(scoreTextField.getText());
                         }
-                        stats.updateStatistics(bestScore, stats.getTotScore() / 
+/*                        stats.updateStatistics(bestScore, stats.getTotScore() / 
                                 stats.getGamesNum(), stats.getTotWordsFound() / 
                                     stats.getGamesNum());
+*/
                         for (Button b : selectedButtons) {
                             b.setStyle(null);
                             b.setDisable(false);
@@ -225,6 +219,24 @@ public class FXMLDocumentController implements Initializable, Constants {
                     }
                 }
             }
+    }
+    
+    /**
+     * Gestisce la pressione di un bottone generico
+     * @param button bottone premuto
+     * @throws IOException
+     */
+    public void handleGeneralButtonAction(Button button) throws IOException {
+        if (!(button.getStyle().equalsIgnoreCase(BUTTON_COLOR))) {
+            button.setStyle(BUTTON_COLOR);
+            selectedButtons.add(button);
+            if (selectedButtons.size() - 1 > 0) {
+                selectedButtons.get(selectedButtons.size() - 2).setDisable(true);
+            }
+            wordFromKeyboardTextField.setText(wordFromKeyboardTextField.getText() + 
+                            button.getText());
+            String s = wordFromKeyboardTextField.getText();
+            stringResearchInDictionary(s);
         } else if (!(button.isDisabled())) {
             button.setStyle(null);
             selectedButtons.remove(button);
@@ -243,6 +255,7 @@ public class FXMLDocumentController implements Initializable, Constants {
      * @param event evento di pressione su endGameButton
      */
     public void endGame(Event event) {
+        timer.cancel();
         endGameButton.setDisable(true);
         letter1Button.setDisable(true);
         letter2Button.setDisable(true);
@@ -254,9 +267,8 @@ public class FXMLDocumentController implements Initializable, Constants {
         BTN_Language.setDisable(true);
         timeMinTextField.setText("" + 0);
         timeSecTextField.setText("" + 0);
-        timeMinTextField.setDisable(true);
-        timeSecTextField.setDisable(true);
-        timer.cancel();
+        timeMinTextField.setEditable(false);
+        timeSecTextField.setEditable(false);
         wordFromKeyboardTextField.setDisable(true);
         diffBox.setDisable(true);
     }
@@ -331,29 +343,25 @@ public class FXMLDocumentController implements Initializable, Constants {
         handleGeneralButtonAction(letter7Button);
     }
     
+    private void restartScene(String dict){
+        diffBox.setDisable(false);
+        AnagramManagement new_dictionary = new AnagramManagement(dict, CLEAN_DICTIONARY_FILE);
+        FXMLDocumentController.anagram = new_dictionary;
+        FileManagement.deleteWordsAfterSlashCharacter();
+        String s = dictionary.startingWord();
+        buttonInitialization(s);
+    }
+    
     /**
      * Cambia la lingua del dizionario
      */
     public void changeLanguage() throws IOException {
         if (BTN_Language.getText().equals("IT")) {
             BTN_Language.setText("EN");
-            AnagramManagement new_dictionary = new AnagramManagement(ENG_DIC, "out.txt");
-            FXMLDocumentController.anagram = new_dictionary;
-            FileManagement.deleteWordsAfterSlashCharacter();
-            String s = dictionary.startingWord();
-            for(Button b : selectedButtons){
-                if(b.getStyle().equalsIgnoreCase(BUTTON_COLOR))
-                    handleGeneralButtonAction(b);
-            }
-            selectedButtons.removeAllElements();
-            buttonInitialization(s);
+            restartScene(ENG_DIC);
         } else if (BTN_Language.getText().equals("EN")) {
             BTN_Language.setText("IT");
-            AnagramManagement new_dictionary = new AnagramManagement(ITA_DIC, "out.txt");
-            FXMLDocumentController.anagram = new_dictionary;
-            FileManagement.deleteWordsAfterSlashCharacter();
-            String s = AnagramManagement.dictionary.startingWord();
-            buttonInitialization(s);
+            restartScene(ITA_DIC);
         }
     }
     
@@ -468,7 +476,6 @@ public class FXMLDocumentController implements Initializable, Constants {
         if (wordFromKeyboardTextField.getText().length() > 0) {
             String toDel = "" + wordFromKeyboardTextField.getText().substring(
                     wordFromKeyboardTextField.getText().length() - 1);
-            System.out.println(concWordsTyped);
             Button b = null;
             for (Button b1 : selectedButtons) {
                 if (b1.getText().equalsIgnoreCase(toDel) && b1.getStyle().equalsIgnoreCase(BUTTON_COLOR)) {
@@ -498,8 +505,6 @@ public class FXMLDocumentController implements Initializable, Constants {
             String string = "" + kEvent.getText();
             for (Button b : buttonLinkedList) {
                 if (b.getText().equalsIgnoreCase(string) && !(b.getStyle().equalsIgnoreCase(BUTTON_COLOR))) {
-                    int prevScore, actScore, bestScore;
-                    bestScore = Integer.parseInt(bestScoreTextField.getText());
                     if (!(b.getStyle().equalsIgnoreCase(BUTTON_COLOR))) {
                         b.setStyle(BUTTON_COLOR);
                         selectedButtons.push(b);
@@ -507,29 +512,7 @@ public class FXMLDocumentController implements Initializable, Constants {
                             selectedButtons.get(selectedButtons.size() - 2).setDisable(true);
                         }
                         concWordsTyped += kEvent.getText().toLowerCase();
-                        for (String param : getWordsInDictionaryArrayList()) {
-                            if (concWordsTyped.equalsIgnoreCase(param) && concWordsTyped.length() > 2) {
-                                if (!(wordsFoundTextArea.getText().contains(concWordsTyped))) {
-                                    wordFromKeyboardTextField.clear();
-                                    wordsFoundTextArea.setText(wordsFoundTextArea.getText()
-                                            + (concWordsTyped + "\n"));
-                                    prevScore = Integer.parseInt(scoreTextField.getText());
-                                    actScore = scoringSwitchCase(concWordsTyped.length());
-                                    scoreTextField.setText("" + (prevScore + actScore));
-                                    if (Integer.parseInt(scoreTextField.getText()) > bestScore) {
-                                        bestScoreTextField.setText(scoreTextField.getText());
-                                        bestScore = Integer.parseInt(scoreTextField.getText());
-                                        updateBestScore(bestScore);
-                                    }
-                                    for (Button b1 : selectedButtons) {
-                                        b1.setStyle(null);
-                                        b1.setDisable(false);
-                                    }
-                                    selectedButtons.removeAllElements();
-                                    concWordsTyped = "";
-                                }
-                            }
-                        }
+                        stringResearchInDictionary(concWordsTyped);
                     }
                     break;
                 }
@@ -560,8 +543,12 @@ public class FXMLDocumentController implements Initializable, Constants {
     }
     
     public void choiceBoxDiff() throws InterruptedException {
-        diffBox.getItems().clear();
+        /*
+        diffBox.getItems().removeAll(difficulties);
         diffBox.getItems().addAll("Easy", "Medium", "Hard");
+        diffBox.getItems().addAll(difficulties);
+        */
+        diffBox.getItems().addAll(difficulties);
         diffBox.setOnAction(event -> {
             String selectedChoice = diffBox.getValue();
             if (selectedChoice.equalsIgnoreCase("easy")) {
@@ -572,6 +559,7 @@ public class FXMLDocumentController implements Initializable, Constants {
                 timerManager(HARD_TIME);
             }
             diffBox.setDisable(true);
+            BTN_Language.setDisable(true);
         });
         changeTimeValue();
     }
@@ -581,8 +569,8 @@ public class FXMLDocumentController implements Initializable, Constants {
      */
     public void changeTimeValue() {
         wordFromKeyboardTextField.setEditable(true);
+        wordFromKeyboardTextField.setDisable(false);
         endGameButton.setDisable(false);
-        BTN_Language.setDisable(false);
         letter1Button.setDisable(false);
         letter2Button.setDisable(false);
         letter3Button.setDisable(false);
@@ -616,9 +604,27 @@ public class FXMLDocumentController implements Initializable, Constants {
         f.close();
     }
     
+    private void startScene(){
+        scoreTextField.setEditable(false);
+        timeMinTextField.setEditable(false);
+        timeSecTextField.setEditable(false);
+        wordFromKeyboardTextField.setEditable(false);
+        wordsFoundTextArea.setEditable(false);
+        bestScoreTextField.setEditable(false);
+        endGameButton.setDisable(true);
+        letter1Button.setDisable(true);
+        letter2Button.setDisable(true);
+        letter3Button.setDisable(true);
+        letter4Button.setDisable(true);
+        letter5Button.setDisable(true);
+        letter6Button.setDisable(true);
+        letter7Button.setDisable(true);
+        concWordsTyped = "";
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        anagram = new AnagramManagement(ITA_DIC, "out.txt");
+        anagram = new AnagramManagement(ITA_DIC, CLEAN_DICTIONARY_FILE);
         Statistics stats = new Statistics();
         try {
             Statistics.readStatsFromFile(STATS_FILE, stats);
@@ -629,7 +635,6 @@ public class FXMLDocumentController implements Initializable, Constants {
         FileManagement.deleteWordsAfterSlashCharacter();
         stats.setGamesNum(stats.getGamesNum() + 1);
         selectedButtons = new Stack<>();
-        concWordsTyped = "";
         try {
             loadBestScore();
         } catch (IOException e) {
@@ -684,20 +689,6 @@ public class FXMLDocumentController implements Initializable, Constants {
             }
         };
         wordFromKeyboardTextField.addEventHandler(KeyEvent.ANY, tabListener);
-        scoreTextField.setEditable(false);
-        timeMinTextField.setEditable(false);
-        timeSecTextField.setEditable(false);
-        wordFromKeyboardTextField.setEditable(false);
-        wordsFoundTextArea.setEditable(false);
-        bestScoreTextField.setEditable(false);
-        endGameButton.setDisable(true);
-        BTN_Language.setDisable(true);
-        letter1Button.setDisable(true);
-        letter2Button.setDisable(true);
-        letter3Button.setDisable(true);
-        letter4Button.setDisable(true);
-        letter5Button.setDisable(true);
-        letter6Button.setDisable(true);
-        letter7Button.setDisable(true);
+        startScene();
     }
 }
